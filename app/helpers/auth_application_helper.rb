@@ -1,0 +1,2 @@
+module AuthApplicationHelper
+end

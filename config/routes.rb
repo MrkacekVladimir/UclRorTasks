@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
 
-  get 'dashboard/index'
+  root to: "home#index"
+
+  get 'settings', to: 'settings#index'
+  get 'dashboard', to: 'dashboard#index'
 
   resources :tasks
-  resources :tags
-  resources :categories
+  namespace :settings do
+    resources :tags, :categories
+  end
+
   devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: "home#index"
+# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

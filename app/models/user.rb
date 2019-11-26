@@ -4,9 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :username, presence: true
+  validates :email, presence: true
 
-  auto_strip_attributes :username, :email ,squish: true
+  auto_strip_attributes :email, squish: true
 
   has_many :categories
   has_many :tags

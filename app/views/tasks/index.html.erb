@@ -1,38 +1,20 @@
-<p id="notice"><%= notice %></p>
+<div class="alert alert-info"><%= notice %></div>
 
 <h1>Tasks</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Color</th>
-      <th>Deadline at</th>
-      <th>Note</th>
-      <th>Is done</th>
-      <th>User</th>
-      <th>Category</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.color %></td>
-        <td><%= task.deadline_at %></td>
-        <td><%= task.note %></td>
-        <td><%= task.is_done %></td>
-        <td><%= task.user %></td>
-        <td><%= task.category %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @tasks.each do |task| %>
+  <div class="well">
+    <p><%= task.title %></p>
+    <p><%= task.color %></p>
+    <p><%= task.deadline_at %></p>
+    <p><%= task.note %></p>
+    <p><%= task.is_done %></p>
+    <p><%= task.user %></p>
+    <p><%= task.category %></p>
+    <p><%= link_to 'Show', task %></p>
+    <p><%= link_to 'Edit', edit_task_path(task) %></p>
+    <p><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+  </div>
+<% end %>
 
 <br>
 

@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">UCL Tasks</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <% if current_user == nil %>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Register", new_user_registration_path, class: "nav-link" %>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= link_to "Tasks", tasks_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Settings", settings_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="my-account-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            My account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="my-account-dropdown">
+            <%= link_to "Settings", edit_user_registration_path, class: "dropdown-item" %>
+            <hr>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</nav>

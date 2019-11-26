@@ -1,4 +1,4 @@
-class TagsController < AuthApplicationController
+class Settings::TagsController < LoggedInAppController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   # GET /tags
@@ -69,6 +69,6 @@ class TagsController < AuthApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
-      params.require(:tag).permit(:title, :color, :user_id)
+      params.require(:tag).permit(:title, :color)
     end
 end

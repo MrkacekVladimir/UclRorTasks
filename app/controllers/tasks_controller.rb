@@ -1,4 +1,4 @@
-class TasksController < AuthApplicationController
+class TasksController < LoggedInAppController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
@@ -62,13 +62,16 @@ class TasksController < AuthApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def task_params
-      params.require(:task).permit(:title, :color, :deadline_at, :note, :is_done, :user_id, :category_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def task_params
+    params.require(:task)
+        .permit(:title, :color, :deadline_at, :note, :is_done, :category_id, tag_ids: [])
+        .merge(user_id: current_user.id)
+  end
 end

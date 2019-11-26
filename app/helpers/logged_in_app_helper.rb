@@ -1,0 +1,2 @@
+module LoggedInAppHelper
+end

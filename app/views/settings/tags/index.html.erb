@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Tags</h1>
 
 <table>
@@ -7,7 +5,6 @@
     <tr>
       <th>Title</th>
       <th>Color</th>
-      <th>User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,10 +14,9 @@
       <tr>
         <td><%= tag.title %></td>
         <td><%= tag.color %></td>
-        <td><%= tag.user %></td>
-        <td><%= link_to 'Show', tag %></td>
+        <td><%= link_to 'Show', settings_tag_path(tag) %></td>
         <td><%= link_to 'Edit', edit_settings_tag_path(tag) %></td>
-        <td><%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', settings_tag_path(tag), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

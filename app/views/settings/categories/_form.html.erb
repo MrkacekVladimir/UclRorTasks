@@ -1,15 +1,19 @@
-<%= simple_form_for [:settings, @category], method: :post do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<%= simple_form_for [:settings, @category] do |f| %>
+  <div class="card-body">
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-group">
-    <%= f.input :title %>
+    <div class="form-inputs">
+      <%= f.input :title %>
+      <%= f.input :color, as: :color %>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.input :color, as: :color %>
-  </div>
-
-  <div class="form-groups">
-    <%= f.button :submit %>
+  <div class="card-footer">
+    <div class="form-actions">
+      <%= f.button :submit, class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>
+
+
+

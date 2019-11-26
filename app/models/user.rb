@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :email, presence: true
+  validates :username, presence: true
 
   auto_strip_attributes :email, squish: true
 

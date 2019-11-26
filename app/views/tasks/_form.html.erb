@@ -1,39 +1,25 @@
-<div class="well">
-  <%= simple_form_for(@task) do |f| %>
+<%= simple_form_for(@task) do |f| %>
+  <div class="card-body">
+
     <%= f.error_notification %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-    <div class="form-group">
+    <div class="form-inputs">
       <%= f.input :title %>
-    </div>
-    <div class="form-group">
       <%= f.input :color %>
-    </div>
-    <div class="form-group">
       <%= f.input :deadline_at %>
-    </div>
-
-    <div class="form-group">
       <%= f.input :note %>
-    </div>
-
-    <div class="form-group">
       <%= f.input :is_done %>
-    </div>
-    <div class="form-group">
       <%= f.association :user, include_blank: false, label_method: lambda { |user| "#{user.email}" } %>
-    </div>
-    <div class="form-group">
       <%= f.association :category, include_blank: false, label_method: lambda { |category| "#{category.title}" } %>
-    </div>
-
-    <div class="form-group">
       <%= f.association :tags, as: :radio_buttons, include_blank: false, label_method: lambda { |tag| "#{tag.title}" } %>
     </div>
-
-    <div class="form-group">
+  </div>
+  <div class="card-footer">
+    <div class="form-actions">
       <%= f.button :submit, class: "btn btn-primary" %>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
+
 

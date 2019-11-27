@@ -1,4 +1,4 @@
-class TasksController < LoggedInAppController
+class SignedIn::TasksController < SignedInAppController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks

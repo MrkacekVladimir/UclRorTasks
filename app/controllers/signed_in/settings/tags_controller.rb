@@ -1,4 +1,4 @@
-class Settings::TagsController < LoggedInAppController
+class Settings::TagsController < SignedInAppController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   # GET /tags

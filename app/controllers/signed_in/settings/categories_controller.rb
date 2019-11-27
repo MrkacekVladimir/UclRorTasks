@@ -1,4 +1,4 @@
-class Settings::CategoriesController < LoggedInAppController
+class Settings::CategoriesController < SignedInAppController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories

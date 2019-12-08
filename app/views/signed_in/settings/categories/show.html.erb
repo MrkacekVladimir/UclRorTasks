@@ -1,14 +1,25 @@
-<p id="notice"><%= notice %></p>
+<div class="card">
+  <div class="card-header">
+    <h2 style="color: <%= @category.color %>"><%= @category.title %></h2>
+  </div>
+  <div class="card-body">
+    <% unless notice.blank? %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
+    <h3>Associated tasks</h3>
+    <ul>
+      <% @category.tasks.each do |task| %>
+        <li>
+          <span style="color: <%= task.color %>"><%= task.title %></span> - <%= link_to "Show", task_path(task) %>
+        </li>
+      <% end %>
+    </ul>
 
-<p>
-  <strong>Title:</strong>
-  <%= @category.title %>
-</p>
+  </div>
+  <div class="card-footer">
+    <%= link_to 'Edit', edit_settings_category_path(@category), class: "btn btn-primary" %>
+    <%= link_to 'Back', settings_categories_path, class: "btn btn-info" %>
+  </div>
+</div>
 
-<p>
-  <strong>Color:</strong>
-  <%= @category.color %>
-</p>
 
-<%= link_to 'Edit', edit_settings_category_path(@category) %> |
-<%= link_to 'Back', settings_categories_path %>

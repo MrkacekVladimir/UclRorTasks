@@ -1,14 +1,12 @@
 <%= simple_form_for(@task) do |f| %>
   <div class="card-body">
-
-    <%= f.error_notification %>
-    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-    <ul class="alert alert-danger">
-      <% @task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+    <% if @task.errors.full_messages.count > 0 %>
+      <ul class="alert alert-danger">
+        <% @task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
     <div class="form-inputs">
       <%= f.input :title %>
@@ -16,8 +14,8 @@
       <%= f.input :deadline_at, as: :string, input_html: {data: {provide: "datepicker", 'date-format': 'yyyy-mm-dd'}} %>
       <%= f.input :note, as: :text %>
       <%= f.input :is_done, as: :boolean, input_html: {class: "toggle", data: {toggle: :toggle}} %>
-      <%= f.association :category, input_html: {class: "select2-dropdown"}, label_method: lambda { |category| "#{category.title}" }, include_blank: true %>
-      <%= f.association :tags, input_html: {multiple: true, class: "select2-dropdown"}, label_method: lambda { |tag| "#{tag.title}" }, include_blank: false %>
+      <%= f.association :category, collection: @user_categories, input_html: {class: "select2-dropdown"}, label_method: lambda { |category| "#{category.title}" }, include_blank: true %>
+      <%= f.association :tags, collection: @user_tags, input_html: {multiple: true, class: "select2-dropdown"}, label_method: lambda { |tag| "#{tag.title}" }, include_blank: false %>
     </div>
   </div>
   <div class="card-footer">

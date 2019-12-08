@@ -4,7 +4,7 @@ class SignedIn::Settings::TagsController < SignedInAppController
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.for_user_id(current_user.id).all
+    @tags = current_user.tags.all
   end
 
   # GET /tags/1
@@ -70,7 +70,7 @@ class SignedIn::Settings::TagsController < SignedInAppController
   end
 
   def get_tasks
-    @tasks = Task.includes(:tags).where(tags: { id: params[:id] }).all
+    @tasks = current_user.tasks.includes(:tags).where(tags: { id: params[:id] }).all
     #@tasks = Task.joins(:tag_associations).where(tag_associations: {tag_id: params[:id]}).all
   end
 

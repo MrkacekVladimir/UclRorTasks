@@ -10,16 +10,21 @@ class SignedIn::TasksController < SignedInAppController
                      TaskFilter.new
                    end
 
-    @tasks = Task
+    @task_deletion = TaskDeletion.new
+
+    @tasks = current_user.tasks
                  .includes(:category)
                  .includes(:tags)
-                 .for_user_id(current_user.id)
                  .apply_filter(@task_filter)
                  .order(category_id: :desc)
                  .all
 
-    @categories = Category.for_user_id(current_user.id).all
-    @tags = Tag.for_user_id(current_user.id).all
+    @categories = current_user.categories.all
+    @tags = current_user.tags.all
+  end
+
+  def delete_all
+
   end
 
   # GET /tasks/1
@@ -29,11 +34,15 @@ class SignedIn::TasksController < SignedInAppController
 
   # GET /tasks/new
   def new
+    set_user_categories
+    set_user_tags
     @task = Task.new
   end
 
   # GET /tasks/1/edit
   def edit
+    set_user_categories
+    set_user_tags
   end
 
   # POST /tasks
@@ -81,6 +90,14 @@ class SignedIn::TasksController < SignedInAppController
   # Use callbacks to share common setup or constraints between actions.
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def set_user_categories
+    @user_categories = current_user.categories.all
+  end
+
+  def set_user_tags
+    @user_tags = current_user.tags.all
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

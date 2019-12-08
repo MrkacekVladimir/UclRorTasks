@@ -12,15 +12,6 @@
 <body>
 <%= render "shared/header" %>
 <div class="container mt-5">
-  <% if !notice.blank? %>
-    <div class="alert alert-info notice"> <%= notice %></div>
-  <% end %>
-
-  <% if !alert.blank? %>
-    <div class="alert alert-danger"><%= alert %></div>
-  <% end %>
-
-
   <%= yield %>
 </div>
 

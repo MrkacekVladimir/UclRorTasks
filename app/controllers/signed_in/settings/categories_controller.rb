@@ -4,12 +4,13 @@ class SignedIn::Settings::CategoriesController < SignedInAppController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.for_user_id(current_user.id).all
+    @categories = current_user.categories.all
   end
 
   # GET /categories/1
   # GET /categories/1.json
   def show
+    get_tasks
   end
 
   # GET /categories/new
@@ -66,6 +67,11 @@ class SignedIn::Settings::CategoriesController < SignedInAppController
     def set_category
       @category = Category.find(params[:id])
     end
+
+  def get_tasks
+    @tasks = current_user.tasks.includes(:category).where(category: { id: params[:id] }).all
+    #@tasks = Task.joins(:tag_associations).where(tag_associations: {tag_id: params[:id]}).all
+  end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params

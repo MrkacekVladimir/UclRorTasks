@@ -1,29 +1,38 @@
-<div class="alert alert-info"><%= notice %></div>
+<div class="card task-card">
+  <div class="card-header">
+    <h2 style="color: <%= @task.color %>"><%= @task.title %></h2>
+  </div>
+  <div class="card-body">
 
-<p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
+    <% unless notice.blank? %>
+      <div class="alert alert-info"><%= notice %></div>
+    <% end %>
 
-<p>
-  <strong>Color:</strong>
-  <%= @task.color %>
-</p>
+    <p>Created at <%= @task.deadline_at.strftime("%d/%m/%Y %H:%M") %></p>
+    <div class="note">
+      <p><%= @task.note %></p>
+    </div>
 
-<p>
-  <strong>Deadline at:</strong>
-  <%= @task.deadline_at %>
-</p>
+    <% if @task.is_done %>
+      <p class="finished">Finished  <%= fa_icon "check 2x" %></p>
+    <% else %>
+      <p class="not-finished">Not Finished  <%= fa_icon "times 2x" %></p>
+    <% end %>
+    <% if @task.category.nil? %>
+      <p>Without category - <%= link_to "Assign category", edit_task_path(@task) %></p>
+    <% else %>
+      <p>Category: <span style="color: <%= @task.category.color %>"><%= @task.category.title %></span> - <%= link_to "Show", settings_category_path(@task.category) %></p>
+    <% end %>
+    <h3>Associated tags</h3>
+    <ul>
+      <% @task.tags.each do |tag| %>
+      <li><span style="color: <%= tag.color %>"><%= tag.title %></span> - <%= link_to "Show", settings_tag_path(tag) %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="card-footer">
+    <%= link_to 'Edit', edit_task_path(@task), class: "btn btn-primary" %>
+    <%= link_to 'Delete', task_path(@task), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+  </div>
+</div>
 
-<p>
-  <strong>Note:</strong>
-  <%= @task.note %>
-</p>
-
-<p>
-  <strong>Is done:</strong>
-  <%= @task.is_done %>
-</p>
-
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>

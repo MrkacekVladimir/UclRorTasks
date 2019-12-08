@@ -1,15 +1,16 @@
-class Settings::TagsController < SignedInAppController
+class SignedIn::Settings::TagsController < SignedInAppController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    @tags = Tag.for_user_id(current_user.id).all
   end
 
   # GET /tags/1
   # GET /tags/1.json
   def show
+    get_tasks
   end
 
   # GET /tags/new
@@ -66,6 +67,11 @@ class Settings::TagsController < SignedInAppController
   # Use callbacks to share common setup or constraints between actions.
   def set_tag
     @tag = Tag.find(params[:id])
+  end
+
+  def get_tasks
+    @tasks = Task.includes(:tags).where(tags: { id: params[:id] }).all
+    #@tasks = Task.joins(:tag_associations).where(tag_associations: {tag_id: params[:id]}).all
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

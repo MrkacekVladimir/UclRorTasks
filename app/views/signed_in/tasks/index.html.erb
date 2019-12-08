@@ -1,19 +1,67 @@
 <h1>Tasks</h1>
-<% @tasks.each do |task| %>
-  <div class="">
-    <p><%= task.title %></p>
-    <p><%= task.color %></p>
-    <p><%= task.deadline_at %></p>
-    <p><%= task.note %></p>
-    <p><%= task.is_done %></p>
-    <p><%= task.user %></p>
-    <p><%= task.category %></p>
-    <p><%= link_to 'Show', task %></p>
-    <p><%= link_to 'Edit', edit_task_path(task) %></p>
-    <p><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+<div class="row tasks">
+  <div class="col-md-3">
+    <%= simple_form_for @task_filter, url: tasks_path, method: :get do |f| %>
+      <aside class="filter-options">
+        <h2>Filter options</h2>
+        <%= f.input :search_term, as: :string %>
+
+        <div class="form-group pretty p-switch p-fill">
+          <%= f.input_field :only_unfinished, as: :boolean %>
+          <div class="state">
+            <label>Only Unfinished</label>
+          </div>
+        </div>
+
+        <%= f.input :category_ids, label: "Categories", collection: @categories, input_html: {multiple: true, class: "select2-dropdown"}, label_method: lambda { |category| "#{category.title}" }, include_blank: false %>
+        <%= f.input :tag_ids, label: "Tags", collection: @tags, input_html: {multiple: true, class: "select2-dropdown"}, label_method: lambda { |tag| "#{tag.title}" }, include_blank: false %>
+        <%= f.button :submit, "Filter", class: "btn btn-primary" %>
+      </aside>
+    <% end %>
   </div>
-<% end %>
+  <div class="col-md-9">
+    <h2>Filtered tasks</h2>
+    <div class="row">
+      <% @tasks.each do |task| %>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <p><%= task.title %></p>
+            </div>
+            <div class="card-body">
+              <p><%= task.color %></p>
+              <p><%= task.deadline_at %></p>
+              <p><%= task.note %></p>
 
-<br>
 
-<%= link_to 'New Task', new_task_path %>
+              <% if task.is_done %>
+                <p class="finished">Finished  <%= fa_icon "check 2x" %></p>
+              <% else %>
+                <p class="not-finished">Not Finished  <%= fa_icon "times 2x" %></p>
+              <% end %>
+              <% if task.category.nil? %>
+                <p>Without category</p>
+              <% else %>
+                <p style="color: <%= task.category.color %>"><%= task.category.title %></p>
+              <% end %>
+              <p>Has <%= task.tags.length %> tags</p>
+            </div>
+            <div class="card-footer">
+              <%= link_to 'Show', task_path(task), class: "btn btn-primary" %>
+              <%= link_to 'Edit', edit_task_path(task), class: "btn btn-primary" %>
+              <%= link_to 'Delete', task_path(task), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <br>
+    <div class="card">
+      <%= link_to 'New Task', new_task_path, class: "btn btn-success" %>
+    </div>
+
+  </div>
+</div>
+
+
+

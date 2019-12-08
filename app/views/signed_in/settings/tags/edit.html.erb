@@ -5,5 +5,9 @@
   <%= render 'form', tag: @tag %>
 </div>
 
-<%= link_to 'Show', settings_tags_path(@tag) %> |
-<%= link_to 'Back', settings_tags_path %>
+<div class="card">
+  <%= link_to 'Show', settings_tags_path(@tag), class: "btn btn-primary" %>
+  <%= link_to 'Back', settings_tags_path, class: "btn btn-info"  %>
+</div>
+
+

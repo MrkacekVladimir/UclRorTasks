@@ -8,5 +8,11 @@
   <%= @tag.color %>
 </p>
 
+<% @tasks.each do |task| %>
+  <div class="card">
+    <%= link_to task.title, task_path(task) %>
+  </div>
+<% end %>
+
 <%= link_to 'Edit', edit_settings_tag_path(@tag) %> |
 <%= link_to 'Back', settings_tags_path %>

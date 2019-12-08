@@ -25,15 +25,5 @@
   <%= @task.is_done %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @task.user %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @task.category %>
-</p>
-
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>

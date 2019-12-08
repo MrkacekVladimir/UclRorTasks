@@ -1,9 +1,13 @@
-<div class="card">
+<div class="card mb-4">
   <div class="card-header">
     <h1>Editing Task</h1>
   </div>
   <%= render 'form', task: @task %>
 </div>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+<div class="card">
+  <%= link_to 'Show', @task, class: "btn btn-primary" %>
+  <%= link_to 'Back', tasks_path, class: "btn btn-info" %>
+</div>
+
+

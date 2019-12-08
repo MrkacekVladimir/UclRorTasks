@@ -9,7 +9,11 @@ class User < ApplicationRecord
 
   auto_strip_attributes :email, squish: true
 
-  has_many :categories
-  has_many :tags
-  has_many :tasks
+  has_many :categories, dependent: :delete_all
+  has_many :tags, dependent: :delete_all
+  has_many :tasks, dependent: :delete_all
+
+  def self.for_user_id(user_id)
+    Tag.where(user_id: user_id)
+  end
 end

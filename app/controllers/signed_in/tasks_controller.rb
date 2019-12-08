@@ -4,7 +4,22 @@ class SignedIn::TasksController < SignedInAppController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @task_filter = if params.has_key? :task_filter
+                     TaskFilter.new(params[:task_filter])
+                   else
+                     TaskFilter.new
+                   end
+
+    @tasks = Task
+                 .includes(:category)
+                 .includes(:tags)
+                 .for_user_id(current_user.id)
+                 .apply_filter(@task_filter)
+                 .order(category_id: :desc)
+                 .all
+
+    @categories = Category.for_user_id(current_user.id).all
+    @tags = Tag.for_user_id(current_user.id).all
   end
 
   # GET /tasks/1
@@ -72,6 +87,7 @@ class SignedIn::TasksController < SignedInAppController
   def task_params
     params.require(:task)
         .permit(:title, :color, :deadline_at, :note, :is_done, :category_id, tag_ids: [])
+        .reject { |key, value| key == :tag_ids && value.blank? }
         .merge(user_id: current_user.id)
   end
 end

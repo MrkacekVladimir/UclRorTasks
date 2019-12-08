@@ -1,10 +1,10 @@
-class Settings::CategoriesController < SignedInAppController
+class SignedIn::Settings::CategoriesController < SignedInAppController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @categories = Category.for_user_id(current_user.id).all
   end
 
   # GET /categories/1

@@ -4,15 +4,22 @@
   <title>UclRorTasks</title>
   <%= csrf_meta_tags %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag :application, media: :all, 'data-turbolinks-track': :reload %>
+  <%= stylesheet_link_tag :application, "https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" %>
+  <%= javascript_include_tag :application, 'data-turbolinks-track': :reload %>
 </head>
 
 <body>
 <%= render "shared/header" %>
-<div class="container">
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+<div class="container mt-5">
+  <% if !notice.blank? %>
+    <div class="alert alert-info notice"> <%= notice %></div>
+  <% end %>
+
+  <% if !alert.blank? %>
+    <div class="alert alert-danger"><%= alert %></div>
+  <% end %>
+
 
   <%= yield %>
 </div>
